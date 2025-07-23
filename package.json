@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx ts-node -r tsconfig-paths/register src/index.ts",
     "format": "prettier --write \"src/**/*.{ts,js,json}\"",
-    "check": "prettier --check \"src/**/*.{ts,js,json}\""
+    "check": "prettier --check \"src/**/*.{ts,js,json}\"",
+    "build": "tsc --project tsconfig.json"
   },
   "keywords": [],
   "author": "",
