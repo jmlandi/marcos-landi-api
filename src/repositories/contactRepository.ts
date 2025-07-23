@@ -34,14 +34,14 @@ export class ContactRepository {
 
   async getAllContacts(): Promise<pg.QueryResultRow> {
     const query =
-      "SELECT id, name, email, phone_number, message, created_at FROM contacts;";
+      'SELECT id, name, email, phone_number, message, created_at FROM contacts;';
     const response = await this.db.query(query);
     return response.rows;
   }
 
   async getContactById(id: string): Promise<pg.QueryResultRow> {
     const query =
-      "SELECT id, name, email, phone_number, message, created_at FROM contacts WHERE id = $1 ORDER BY created_at DESC;";
+      'SELECT id, name, email, phone_number, message, created_at FROM contacts WHERE id = $1 ORDER BY created_at DESC;';
     const response = await this.db.query(query, [id]);
     return response.rows;
   }

@@ -6,7 +6,13 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
+
+# Build the app
+RUN npm run build
+
+# Remove dev dependencies
+RUN npm prune --production
 
 # Copy application source
 COPY . .
@@ -14,5 +20,5 @@ COPY . .
 # Expose port
 EXPOSE 3001
 
-# Start the app
-CMD ["npm", "start"]
+# Start the app using compiled JS
+CMD ["node", "dist/index.js"]
