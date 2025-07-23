@@ -1,25 +1,23 @@
-# Use official Node.js LTS image
-FROM node:24-alpine
-
-# Set working directory
+# ---------- build stage ----------
+FROM node:24-alpine AS builder
 WORKDIR /app
 
-# Copy package files and install dependencies
 COPY package*.json ./
-COPY tsconfig.json ./
-RUN npm install
+RUN npm ci
 
-# Build the app
+COPY tsconfig.json ./
+COPY src ./src
+
 RUN npm run build
 
-# Remove dev dependencies
-RUN npm prune --production
+# ---------- runtime stage ----------
+FROM node:24-alpine
+WORKDIR /app
 
-# Copy application source
-COPY . .
+COPY --from=builder /app/package*.json ./
+RUN npm ci --omit=dev
 
-# Expose port
+COPY --from=builder /app/dist ./dist
+
 EXPOSE 3001
-
-# Start the app using compiled JS
 CMD ["node", "dist/index.js"]
