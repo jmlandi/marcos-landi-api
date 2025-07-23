@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
+COPY tsconfig.json ./
 RUN npm install
 
 # Build the app
