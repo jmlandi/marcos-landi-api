@@ -14,21 +14,21 @@ export class Contact {
     // Validate required fields first
     if (!contact.name || !contact.email) {
       throw new Error(
-        'Name and email are required when creating a new Contact.'
+        '[INVALID] Name and email are required when creating a new Contact.'
       );
     }
     if (!contact.email.includes('@')) {
-      throw new Error('Email must be a valid email address.');
+      throw new Error('[INVALID] Email must be a valid email address.');
     }
     if(contact.phoneNumber) {
       if (!/^\+?[1-9]\d{1,14}$/.test(contact.phoneNumber)) {
         throw new Error(
-          'Phone number must be a valid international phone number.'
+          '[INVALID] Phone number must be a valid international phone number.'
         );
       }
     }
     if (contact.message && contact.message.length > 800) {
-      throw new Error('Message must be less than 800 characters.');
+      throw new Error('[INVALID] Message must be less than 800 characters.');
     }
   }
 
