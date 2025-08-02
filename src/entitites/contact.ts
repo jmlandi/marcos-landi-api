@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 export type ContactType = {
   name: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
   message: string;
   id?: string;
   createdAt?: Date;
@@ -12,18 +12,20 @@ export type ContactType = {
 export class Contact {
   constructor(private contact: ContactType) {
     // Validate required fields first
-    if (!contact.name || !contact.email || !contact.phoneNumber) {
+    if (!contact.name || !contact.email) {
       throw new Error(
-        'Name, email, and phone number are required when creating a new Contact.'
+        'Name and email are required when creating a new Contact.'
       );
     }
     if (!contact.email.includes('@')) {
       throw new Error('Email must be a valid email address.');
     }
-    if (!/^\+?[1-9]\d{1,14}$/.test(contact.phoneNumber)) {
-      throw new Error(
-        'Phone number must be a valid international phone number.'
-      );
+    if(contact.phoneNumber) {
+      if (!/^\+?[1-9]\d{1,14}$/.test(contact.phoneNumber)) {
+        throw new Error(
+          'Phone number must be a valid international phone number.'
+        );
+      }
     }
     if (contact.message && contact.message.length > 800) {
       throw new Error('Message must be less than 800 characters.');
@@ -52,7 +54,7 @@ export class Contact {
   }
 
   getPhoneNumber(): string {
-    return this.contact.phoneNumber;
+    return this.contact.phoneNumber || '';
   }
 
   getMessage(): string {
@@ -77,6 +79,9 @@ export class Contact {
   }
 
   getWhatsAppUrl(): string {
+    if (!this.contact.phoneNumber) {
+      throw new Error('Phone number is not set for WhatsApp URL generation.');
+    }
     const phoneNumber = this.contact.phoneNumber.replace(/\D/g, ''); // Remove non-digit characters
     return `https://wa.me/${phoneNumber}`;
   }
