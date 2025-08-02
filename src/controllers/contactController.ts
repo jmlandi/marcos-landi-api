@@ -35,7 +35,7 @@ export class ContactController {
       res.status(201).json(response);
     } catch (error) {
       console.error('Error creating contact:', error);
-      res.status(500).json({ error: 'Failed to create contact' });
+      res.status(500).json({ error: `Failed to create contact => ${error}` });
     }
   }
 
@@ -46,7 +46,7 @@ export class ContactController {
       res.status(200).json(response);
     } catch (error) {
       console.error('Error deleting contact:', error);
-      res.status(500).json({ error: 'Failed to delete contact' });
+      res.status(500).json({ error: `Failed to delete contact => ${error}` });
     }
   }
 
@@ -56,7 +56,7 @@ export class ContactController {
       res.status(200).json(contacts);
     } catch (error) {
       console.error('Error retrieving contacts:', error);
-      res.status(500).json({ error: 'Failed to retrieve contacts' });
+      res.status(500).json({ error: `Failed to retrieve contacts => ${error}` });
     }
   }
 
