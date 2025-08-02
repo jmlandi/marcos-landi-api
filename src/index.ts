@@ -19,7 +19,6 @@ app.use(cors(corsOptions));
 const healthCheckController = new HealthCheckController();
 const contactController = new ContactController();
 
-
 app.get('/', (req: any, res: any) => {
   healthCheckController.healthCheck(req, res);
 });

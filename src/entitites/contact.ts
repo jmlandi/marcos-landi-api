@@ -20,7 +20,7 @@ export class Contact {
     if (!contact.email.includes('@')) {
       throw new Error('Email must be a valid email address.');
     }
-    if(contact.phoneNumber) {
+    if (contact.phoneNumber) {
       if (!/^\+?[1-9]\d{1,14}$/.test(contact.phoneNumber)) {
         throw new Error(
           'Phone number must be a valid international phone number.'
