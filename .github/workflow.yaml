@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      ['main']
+  pull_request:
+    branches:
+      ['main']
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      -
+        name: Install
+        run: npm install
+      -
+        name: Format
+        run: npm run check
+      -
+        name: Build
+        run: npm run build
+      -
+        name: Build image
+        run: docker build .
+
