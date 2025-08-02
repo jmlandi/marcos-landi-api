@@ -56,7 +56,9 @@ export class ContactController {
       res.status(200).json(contacts);
     } catch (error) {
       console.error('Error retrieving contacts:', error);
-      res.status(500).json({ error: `Failed to retrieve contacts => ${error}` });
+      res
+        .status(500)
+        .json({ error: `Failed to retrieve contacts => ${error}` });
     }
   }
 
